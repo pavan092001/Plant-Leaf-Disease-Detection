@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Plant</string>
+    <string name="cotton">তুলা</string>
+    <string name="tomato">টমেটো</string>
+    <string name="corn">ভুট্টা</string>
+    <string name="apple">আপেল</string>
+    <string name="toast_select_img">অনুগ্রহ করে প্রথমে ছবিটি নির্বাচন করুন</string>
+    <string name="treatment">চিকিৎসা</string>
+    <string name="healthy">আপনার উদ্ভিদ স্বাস্থ্যকর</string>
+</resources>

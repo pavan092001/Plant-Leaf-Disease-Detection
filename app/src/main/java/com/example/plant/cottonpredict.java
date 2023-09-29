@@ -96,13 +96,13 @@ public class cottonpredict extends AppCompatActivity {
                 String name = result.getText().toString();
                 if(name.equalsIgnoreCase("Healthy")){
 
-                    Toast.makeText(cottonpredict.this, "Your Plant is Healthy", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(cottonpredict.this, R.string.healthy, Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     if(image==null)
                     {
-                        Toast.makeText(cottonpredict.this, "Please select Image first", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(cottonpredict.this, getString(R.string.toast_select_img), Toast.LENGTH_SHORT).show();
                     }else
                     {
                         Intent treat= new Intent(getApplicationContext(),Treatment.class);

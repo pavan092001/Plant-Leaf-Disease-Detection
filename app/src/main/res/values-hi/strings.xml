@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Plant</string>
+    <string name="cotton">कपास</string>
+    <string name="tomato">टमाटर</string>
+    <string name="corn">मक्का</string>
+    <string name="apple">सेब</string>
+    <string name="toast_select_img">कृपया सबसे पहले चित्र का चयन करें</string>
+    <string name="treatment">उपचार</string>
+    <string name="healthy">आपका पेड़ स्वस्थ है</string>
+</resources>

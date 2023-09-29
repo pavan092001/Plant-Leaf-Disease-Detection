@@ -95,13 +95,13 @@ public class CornPredict extends AppCompatActivity {
                 String name = result.getText().toString();
                 if(name.equalsIgnoreCase("Healthy Corn")){
 
-                    Toast.makeText(CornPredict.this, "Your Plant is Healthy", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CornPredict.this, getString(R.string.healthy), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     if(image==null)
                     {
-                        Toast.makeText(CornPredict.this, "Please select Image first", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CornPredict.this, R.string.toast_select_img, Toast.LENGTH_SHORT).show();
                     }else
                     {
                         Intent treat= new Intent(getApplicationContext(),Treatment.class);
