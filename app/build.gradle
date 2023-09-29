@@ -15,6 +15,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildFeatures {
+        viewBinding  true
+
+    }
 
     buildTypes {
         release {
@@ -26,6 +30,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.example.plant'
     buildFeatures {
         mlModelBinding true
     }
@@ -39,11 +44,19 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
     implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
+    implementation 'com.google.firebase:firebase-firestore:24.8.1'
+    implementation 'com.google.firebase:firebase-storage:20.2.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     //firebase
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-database")
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
+    //country code picker
+    implementation 'com.hbb20:ccp:2.6.0'
+    //picaso
+    implementation 'com.squareup.picasso:picasso:2.8'
 }

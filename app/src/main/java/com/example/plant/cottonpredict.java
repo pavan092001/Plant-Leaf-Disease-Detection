@@ -41,6 +41,8 @@ public class cottonpredict extends AppCompatActivity {
     FloatingActionButton picture;
     FloatingActionButton gallery;
     Bitmap image;
+
+    Uri img_history;
     int imageSize = 224;//default image size
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,19 +98,20 @@ public class cottonpredict extends AppCompatActivity {
                 String name = result.getText().toString();
                 if(name.equalsIgnoreCase("Healthy")){
 
-                    Toast.makeText(cottonpredict.this, "Your Plant is Healthy", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(cottonpredict.this, R.string.healthy, Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     if(image==null)
                     {
-                        Toast.makeText(cottonpredict.this, "Please select Image first", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(cottonpredict.this, getString(R.string.toast_select_img), Toast.LENGTH_SHORT).show();
                     }else
                     {
                         Intent treat= new Intent(getApplicationContext(),Treatment.class);
                         treat.putExtra("type","cotton");
                         treat.putExtra("name",name);
                         treat.putExtra("img",image);
+                        treat.putExtra("uri",img_history);
                         startActivity(treat);
 
                     }
@@ -122,6 +125,7 @@ public class cottonpredict extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             image = (Bitmap) data.getExtras().get("data");
+            img_history =  FirebaseUtil.getUri(image,cottonpredict.this);
             int dimension = Math.min(image.getWidth(), image.getHeight());
             image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
             imageView.setImageBitmap(image);
@@ -131,6 +135,7 @@ public class cottonpredict extends AppCompatActivity {
         }
         if(requestCode==2 && resultCode==RESULT_OK){
             image = uriToBitmap(data.getData());
+            img_history = data.getData();
             int dimension = Math.min(image.getWidth(), image.getHeight());
             image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
             imageView.setImageBitmap(image);

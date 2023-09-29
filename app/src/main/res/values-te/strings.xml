@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Plant</string>
+    <string name="cotton">పత్తి</string>
+    <string name="tomato">టొమాటో</string>
+    <string name="corn">మొక్కజొన్న</string>
+    <string name="apple">ఆపిల్</string>
+    <string name="toast_select_img">దయచేసి ముందుగా చిత్రాన్ని ఎంచుకోండి</string>
+    <string name="treatment">చికిత్స</string>
+    <string name="healthy">మీ చెట్టు ఆరోగ్యంగా ఉంది</string>
+    <string name="profile">Profile</string>
+    <string name="home_string">Home</string>
+    <string name="login">Login</string>
+    <string name="history_nav">History</string>
+    <string name="open_nav">Navigation Drawer open</string>
+    <string name="close_nav">Navigation Drawer close</string>
+    <string name="skip_login">Skip Login !</string>
+    <string name="enter_mobile_number">Enter mobile number</string>
+    <string name="send_otp">Send otp</string>
+    <string name="log_out">Log out</string>
+    <string name="history">History</string>
+</resources>

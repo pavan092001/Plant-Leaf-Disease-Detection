@@ -34,18 +34,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Please firstly select the Image"
+            android:text="@string/toast_select_img"
             android:textColor="@color/teal_700"
             android:textSize="20sp"
             android:visibility="gone" />
-
         <Button
             android:id="@+id/cure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:text="Treatment" />
+            android:text="@string/treatment" />
 
     </LinearLayout>
 

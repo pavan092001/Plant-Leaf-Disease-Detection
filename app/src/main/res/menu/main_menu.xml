@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home_icon"
+            android:title="@string/home_string" />
+        <item
+            android:id="@+id/nav_cotton"
+            android:icon="@drawable/cotton"
+            android:title="@string/cotton" />
+        <item
+            android:id="@+id/nav_corn"
+            android:icon="@drawable/corn"
+            android:title="@string/corn" />
+        <item
+            android:id="@+id/nav_apple"
+            android:icon="@drawable/apple"
+            android:title="@string/apple" />
+    </group>
+
+
+    <item android:title="@string/profile">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_login"
+                    android:icon="@drawable/profile"
+                    android:title="@string/login" />
+
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/profile"
+                    android:title="Name" />
+
+                <item
+                    android:id="@+id/nav_history"
+                    android:icon="@drawable/history_icon"
+                    android:title="@string/history_nav" />
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/history_icon"
+                    android:title="@string/log_out" />
+            </group>
+        </menu>
+    </item>
+</menu>

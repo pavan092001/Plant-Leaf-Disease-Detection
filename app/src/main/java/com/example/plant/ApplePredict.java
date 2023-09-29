@@ -104,13 +104,13 @@ public class ApplePredict extends AppCompatActivity {
                 String name = result.getText().toString();
                 if(name.equalsIgnoreCase("Healthy")){
 
-                    Toast.makeText(ApplePredict.this, "Your Plant is Healthy", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ApplePredict.this, getString(R.string.healthy), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     if(image==null)
                     {
-                        Toast.makeText(ApplePredict.this, "Please select Image first", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ApplePredict.this, getString(R.string.toast_select_img), Toast.LENGTH_SHORT).show();
                     }else
                     {
                         Intent treat= new Intent(getApplicationContext(),Treatment.class);
