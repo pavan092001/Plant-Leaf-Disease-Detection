@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
@@ -9,15 +10,24 @@
         <item
             android:id="@+id/nav_cotton"
             android:icon="@drawable/cotton"
+            android:iconTint="@null"
+            app:showAsAction="always"
             android:title="@string/cotton" />
         <item
             android:id="@+id/nav_corn"
             android:icon="@drawable/corn"
+            android:iconTint="@null"
             android:title="@string/corn" />
         <item
             android:id="@+id/nav_apple"
             android:icon="@drawable/apple"
+            android:iconTint="@null"
             android:title="@string/apple" />
+<!--        <item-->
+<!--            android:id="@+id/gard"-->
+<!--            android:title="Gradening"-->
+<!--            android:icon="@drawable/tst"-->
+<!--            />-->
     </group>
 
 
@@ -32,15 +42,20 @@
                 <item
                     android:id="@+id/nav_profile"
                     android:icon="@drawable/profile"
-                    android:title="Name" />
+                    android:title="@string/farmer" />
 
                 <item
                     android:id="@+id/nav_history"
                     android:icon="@drawable/history_icon"
                     android:title="@string/history_nav" />
+                <item
+                    android:id="@+id/nav_changelan"
+                    android:icon="@drawable/lan"
+                    android:title="@string/change_language" />
 
                 <item
                     android:id="@+id/nav_logout"
+
                     android:icon="@drawable/history_icon"
                     android:title="@string/log_out" />
             </group>

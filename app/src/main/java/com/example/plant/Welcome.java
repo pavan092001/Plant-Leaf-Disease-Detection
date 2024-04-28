@@ -17,7 +17,11 @@ public class Welcome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityWelcomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        loadLocal();
+        Intent i = getIntent();
+         boolean bt =i.getBooleanExtra("lan_n",false);
+         if(!bt){
+             loadLocal();
+         }
         binding.english.setOnClickListener(view -> {
             changeLanguage("en");
 
@@ -48,6 +52,12 @@ public class Welcome extends AppCompatActivity {
                 changeLanguage("te");
             }
         });
+        binding.tamil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLanguage("ta");
+            }
+        });
 
 
     }
@@ -73,9 +83,7 @@ public class Welcome extends AppCompatActivity {
     {
         SharedPreferences s =getSharedPreferences("app",MODE_PRIVATE);
         String lan = s.getString("lan","");
-        System.out.println(lan);
-        if(!lan.equals(""))
-            changeLanguage(lan);
+        changeLanguage(lan);
     }
 
 }

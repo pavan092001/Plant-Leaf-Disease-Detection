@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -110,7 +111,13 @@ public class Login_Otp extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     Toast.makeText(Login_Otp.this, "OTP verification failed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login_Otp.this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Login_Otp.this, e.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

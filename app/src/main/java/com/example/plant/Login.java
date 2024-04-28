@@ -3,6 +3,7 @@ package com.example.plant;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -30,7 +31,10 @@ public class Login extends AppCompatActivity {
         binding.skipLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.signInAnonymously();
+                SharedPreferences sharedPreferences = getSharedPreferences("app",MODE_PRIVATE);
+                SharedPreferences.Editor editor =sharedPreferences.edit();
+                editor.putBoolean("skip",true);
+                editor.apply();
                 startActivity(new Intent(Login.this, Home.class));
                 finish();
             }

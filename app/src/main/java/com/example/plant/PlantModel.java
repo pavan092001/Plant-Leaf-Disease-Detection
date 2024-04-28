@@ -2,7 +2,9 @@ package com.example.plant;
 
 import com.google.firebase.Timestamp;
 
-public class PlantModel {
+import java.io.Serializable;
+
+public class PlantModel  implements Serializable {
 
     String nameOfPlant;
     String nameOfDiseases;

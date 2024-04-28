@@ -3,7 +3,6 @@ package com.example.plant;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,7 +19,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.plant.ml.Corn;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.tensorflow.lite.DataType;
@@ -40,86 +38,89 @@ public class CornPredict extends AppCompatActivity {
     FloatingActionButton gallery;
     Bitmap image;
     int imageSize = 224;//default image size
+    Uri img_history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corn_predict);
-        getSupportActionBar().setTitle("Corn");
-        result=findViewById(R.id.result);
-        imageView=findViewById(R.id.img);
-        picture=findViewById(R.id.camera);
-        gallery=findViewById(R.id.galary);
-        treatment=findViewById(R.id.cure);
+            getSupportActionBar().setTitle(R.string.corn);
+            result=findViewById(R.id.result);
+            imageView=findViewById(R.id.img);
+            picture=findViewById(R.id.camera);
+            gallery=findViewById(R.id.galary);
+            treatment=findViewById(R.id.cure);
 
 
 
 
-        gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //gallery open
+            gallery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //gallery open
 
-                if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    Intent igallery = new Intent(Intent.ACTION_PICK);
-                    igallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(igallery, 2);
-                } else {
-                    //request camera permission if we don't have
-                    requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 101);
-                }
-            }
-        });
-
-        picture.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-
-            @Override
-            public void onClick(View view) {
-                //camera open
-                if (checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
-
-                }
-                if (checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, 1);
-
-                }
-
-            }
-        });
-        treatment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = result.getText().toString();
-                if(name.equalsIgnoreCase("Healthy Corn")){
-
-                    Toast.makeText(CornPredict.this, getString(R.string.healthy), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    if(image==null)
-                    {
-                        Toast.makeText(CornPredict.this, R.string.toast_select_img, Toast.LENGTH_SHORT).show();
-                    }else
-                    {
-                        Intent treat= new Intent(getApplicationContext(),Treatment.class);
-                        treat.putExtra("type","corn");
-                        treat.putExtra("name",name);
-                        treat.putExtra("img",image);
-                        startActivity(treat);
-
+                    if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Intent igallery = new Intent(Intent.ACTION_PICK);
+                        igallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(igallery, 2);
+                    } else {
+                        //request camera permission if we don't have
+                        requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 101);
                     }
                 }
+            });
 
-            }
-        });
+            picture.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
+
+                @Override
+                public void onClick(View view) {
+                    //camera open
+                    if (checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
+
+                    }
+                    if (checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(cameraIntent, 1);
+
+                    }
+
+                }
+            });
+            treatment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String name = result.getText().toString();
+                    if(name.equalsIgnoreCase("Healthy Corn")){
+
+                        Toast.makeText(CornPredict.this, getString(R.string.healthy), Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        if(image==null)
+                        {
+                            Toast.makeText(CornPredict.this, R.string.toast_select_img, Toast.LENGTH_SHORT).show();
+                        }else
+                        {
+                            Intent treat= new Intent(getApplicationContext(),Treatment.class);
+                            treat.putExtra("type","corn");
+                            treat.putExtra("name",name);
+                            treat.putExtra("img",image);
+                            treat.putExtra("uri",img_history);
+                            startActivity(treat);
+
+                        }
+                    }
+
+                }
+            });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             image = (Bitmap) data.getExtras().get("data");
+            img_history =  FirebaseUtil.getUri(image,CornPredict.this);
             int dimension = Math.min(image.getWidth(), image.getHeight());
             image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
             imageView.setImageBitmap(image);
@@ -129,6 +130,7 @@ public class CornPredict extends AppCompatActivity {
         }
         if(requestCode==2 && resultCode==RESULT_OK){
              image = uriToBitmap(data.getData());
+            img_history = data.getData();
             int dimension = Math.min(image.getWidth(), image.getHeight());
             image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
             imageView.setImageBitmap(image);

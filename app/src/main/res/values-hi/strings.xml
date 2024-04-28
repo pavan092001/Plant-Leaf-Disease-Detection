@@ -8,16 +8,27 @@
     <string name="toast_select_img">कृपया सबसे पहले चित्र का चयन करें</string>
     <string name="treatment">उपचार</string>
     <string name="healthy">आपका पेड़ स्वस्थ है</string>
-    <string name="profile">Profile</string>
-    <string name="home_string">Home</string>
-    <string name="login">Login</string>
-    <string name="history_nav">History</string>
+    <string name="profile">प्रोफ़ाइल</string>
+    <string name="home_string">मुख्य पृष्ठ</string>
+    <string name="login">लॉग इन करें</string>
+    <string name="history_nav">इतिहास</string>
     <string name="open_nav">Navigation Drawer open</string>
     <string name="close_nav">Navigation Drawer close</string>
-    <string name="skip_login">Skip Login !</string>
-    <string name="enter_mobile_number">Enter mobile number</string>
-    <string name="send_otp">Send otp</string>
-    <string name="log_out">Log out</string>
-    <string name="history">History</string>
+    <string name="skip_login">लॉगिन छोड़ दें !</string>
+    <string name="enter_mobile_number">मोबाइल नंबर दर्ज करें</string>
+    <string name="send_otp">OTP भेजें</string>
+    <string name="log_out">लॉग आउट</string>
+    <string name="history">इतिहास</string>
+    <string name="change_language">भाषा बदलें</string>
+    <string name="mango">आम</string>
+    <string name="potato">आलू</string>
+    <string name="rice">चावल</string>
+    <string name="grapes">अंगूर</string>
+    <string name="cassava">कसावा</string>
+    <string name="farmer">किसान</string>
+    <string name="treat">"उपचार "</string>
+    <string name="name_treat">नाम:</string>
+    <string name="cause">" कारण :"</string>
+    <string name="treat_text">Treatment :</string>
 
 </resources>

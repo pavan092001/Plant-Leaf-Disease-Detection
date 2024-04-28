@@ -2,6 +2,8 @@ package com.example.plant;
 
 import com.google.firebase.Timestamp;
 
+import java.io.Serializable;
+
 public class UserModel {
     private String phone;
     private String username;

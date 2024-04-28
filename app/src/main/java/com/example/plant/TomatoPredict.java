@@ -41,12 +41,13 @@ public class TomatoPredict extends AppCompatActivity {
     FloatingActionButton picture;
     FloatingActionButton gallery;
     Bitmap image;
+    Uri img_history;
     int imageSize = 224;//default image size
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tomato_predict);
-        getSupportActionBar().setTitle("Tomato");
+        getSupportActionBar().setTitle(R.string.tomato);
         result=findViewById(R.id.result);
         imageView=findViewById(R.id.img);
         picture=findViewById(R.id.camera);
@@ -106,6 +107,7 @@ public class TomatoPredict extends AppCompatActivity {
                         treat.putExtra("type","tomato");
                         treat.putExtra("name",name);
                         treat.putExtra("img",image);
+                        treat.putExtra("uri",img_history);
                         startActivity(treat);
                     }
 
@@ -119,6 +121,7 @@ public class TomatoPredict extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             image = (Bitmap) data.getExtras().get("data");
+            img_history =  FirebaseUtil.getUri(image,TomatoPredict.this);
             int dimension = Math.min(image.getWidth(), image.getHeight());
             image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
             imageView.setImageBitmap(image);
@@ -128,6 +131,7 @@ public class TomatoPredict extends AppCompatActivity {
         }
         if(requestCode==2 && resultCode==RESULT_OK){
              image = uriToBitmap(data.getData());
+            img_history = data.getData();
             int dimension = Math.min(image.getWidth(), image.getHeight());
             image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
             imageView.setImageBitmap(image);

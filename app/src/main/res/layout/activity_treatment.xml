@@ -37,7 +37,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name :"
+                    android:text="@string/name_treat"
                     android:textColor="@color/black"
                     android:textSize="24sp"
 
@@ -63,7 +63,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cause : "
+                    android:text="@string/cause"
                     android:textSize="25sp"
                     android:textColor="@color/black"
                     />
@@ -87,7 +87,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Treatment : "
+                    android:text="@string/treatment"
                     android:textSize="24sp"
                     android:textColor="@color/black"
                     />

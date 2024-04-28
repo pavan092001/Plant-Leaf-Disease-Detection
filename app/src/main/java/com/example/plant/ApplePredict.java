@@ -35,8 +35,6 @@ import java.nio.ByteOrder;
 public class ApplePredict extends AppCompatActivity {
 
 
-
-
     TextView result;
     ImageView imageView;
     Button treatment;
@@ -45,11 +43,13 @@ public class ApplePredict extends AppCompatActivity {
     Bitmap image;
     int imageSize = 224;//default image size
 
+    Uri img_history;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apple_predict);
-        getSupportActionBar().setTitle("Apple");
+        getSupportActionBar().setTitle(R.string.apple);
         result=findViewById(R.id.result);
         imageView=findViewById(R.id.img);
         picture=findViewById(R.id.camera);
@@ -77,7 +77,6 @@ public class ApplePredict extends AppCompatActivity {
         });
 
         picture.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
 
             @Override
             public void onClick(View view) {
@@ -117,6 +116,7 @@ public class ApplePredict extends AppCompatActivity {
                         treat.putExtra("type","apple");
                         treat.putExtra("name",name);
                         treat.putExtra("img",image);
+                        treat.putExtra("uri",img_history);
                         startActivity(treat);
 
                     }
@@ -130,6 +130,7 @@ public class ApplePredict extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             image = (Bitmap) data.getExtras().get("data");
+            img_history =  FirebaseUtil.getUri(image,ApplePredict.this);
             int dimension = Math.min(image.getWidth(), image.getHeight());
             image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
             imageView.setImageBitmap(image);
@@ -139,6 +140,7 @@ public class ApplePredict extends AppCompatActivity {
         }
         if(requestCode==2 && resultCode==RESULT_OK){
             image = uriToBitmap(data.getData());
+            img_history = data.getData();
             int dimension = Math.min(image.getWidth(), image.getHeight());
             image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
             imageView.setImageBitmap(image);
@@ -191,6 +193,10 @@ public class ApplePredict extends AppCompatActivity {
 
             String[] classes = {"Apple Black rot", "Apple Scab","Healthy","Cedar apple rust"};
             result.setText(classes[maxPos]);
+
+            String accuracy="";
+
+            Toast.makeText(this, "Your accuracy is"+confidence[maxPos]*100, Toast.LENGTH_SHORT).show();
             result.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

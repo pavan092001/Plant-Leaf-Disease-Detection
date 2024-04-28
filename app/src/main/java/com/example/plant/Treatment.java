@@ -3,9 +3,12 @@ package com.example.plant;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +51,7 @@ public class Treatment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treatment);
-        getSupportActionBar().setTitle("Treatment");
+        getSupportActionBar().setTitle(R.string.treatment);
         Intent i = getIntent();
         name=i.getStringExtra("name");
         type = i.getStringExtra("type");
@@ -58,16 +61,30 @@ public class Treatment extends AppCompatActivity {
         name_diseases=findViewById(R.id.name);
         cause=findViewById(R.id.cause);
         resimg= findViewById(R.id.img);
-        user = FirebaseAuth.getInstance();
+        Log.d("type",type);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("History").child(user.getUid());
         resimg.setImageBitmap(img);
-        fetchData(name,type);
-        upload(name,type,ca,treatment,img);
+        String t1 = (String) res.getText();
+        String name_lan=getLanguage();
+        if(name_lan.equals("en") || name_lan.isEmpty()){
+            name_lan=name;
+
+        }else{
+            name_lan=name+" "+name_lan;
+        }
+        Log.i("pavan",name_lan);
+
+        fetchData(name_lan,type);
+        if(FirebaseUtil.isLoggedIn()) {
+            user = FirebaseAuth.getInstance();
+            databaseReference = firebaseDatabase.getReference().child("History").child(user.getUid());
+            upload(name, type, ca, img,t1);
+        }
     }
 
-    private void upload(String name, String type, String cause, String treatment, Bitmap img) {
+    private void upload(String name, String type, String cause, Bitmap img,String t1) {
         StorageReference filepath= firebaseStorage.getReference().child("History").child(imguri.getLastPathSegment());
         filepath.putFile(imguri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -80,8 +97,8 @@ public class Treatment extends AppCompatActivity {
                         newPost.child("nameOfPlant").setValue(type);
                         newPost.child("nameOfDiseases").setValue(name);
                         newPost.child("cause").setValue(ca);
-                        newPost.child("treatment").setValue(treatment);
                         newPost.child("img").setValue(task.getResult().toString());
+                        newPost.child("treatment").setValue(treatment);
                     }
                 });
             }
@@ -104,16 +121,17 @@ public class Treatment extends AppCompatActivity {
                    {
 
                        DataSnapshot dataSnapshot=task.getResult();
+                       System.out.println("daf");
                        String name = String.valueOf(dataSnapshot.child("name").getValue());
                        ca = String.valueOf(dataSnapshot.child("cause").getValue());
-                        treatment=String.valueOf(dataSnapshot.child("Treatment").getValue());
+                       treatment=String.valueOf(dataSnapshot.child("Treatment").getValue());
                        name_diseases.setText(name);
                        cause.setText(ca);
                        res.setText(treatment);
                    }
                    else
                    {
-                       Toast.makeText(Treatment.this, "Healthy plant", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(Treatment.this, "Unable to fetch due to database down", Toast.LENGTH_SHORT).show();
                    }
                 }else
                 {
@@ -122,5 +140,10 @@ public class Treatment extends AppCompatActivity {
             }
         });
 
+    }
+    public String getLanguage()
+    {
+        SharedPreferences s =getSharedPreferences("app",MODE_PRIVATE);
+        return s.getString("lan","");
     }
 }

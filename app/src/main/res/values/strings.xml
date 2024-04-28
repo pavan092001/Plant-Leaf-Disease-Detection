@@ -18,5 +18,15 @@
     <string name="send_otp">Send otp</string>
     <string name="log_out">Log out</string>
     <string name="history">History</string>
-
+    <string name="change_language">Change Language</string>
+    <string name="mango">Mango</string>
+    <string name="potato">Potato</string>
+    <string name="rice">Rice</string>
+    <string name="grapes">Grapes</string>
+    <string name="cassava">Cassava</string>
+    <string name="farmer">Farmer</string>
+    <string name="treat">Treatment</string>
+    <string name="name_treat">Name :</string>
+    <string name="cause">Cause :</string>
+    <string name="treat_text">Treatment :</string>
 </resources>

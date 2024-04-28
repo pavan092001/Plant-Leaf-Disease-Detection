@@ -43,12 +43,14 @@ public class cottonpredict extends AppCompatActivity {
     Bitmap image;
 
     Uri img_history;
+
+
     int imageSize = 224;//default image size
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cottonpredict);
-        getSupportActionBar().setTitle("Cotton");
+        getSupportActionBar().setTitle(R.string.cotton);
         result=findViewById(R.id.result);
         imageView=findViewById(R.id.img);
         picture=findViewById(R.id.camera);

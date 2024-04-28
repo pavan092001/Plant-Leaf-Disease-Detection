@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -17,11 +18,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     List<PlantModel> list;
     Context context;
-    ProgressBar progressBar;
 
-    public MyAdapter(List<PlantModel> list, Context context) {
+    SelectListner selectListner;
+
+    public MyAdapter(List<PlantModel> list, Context context,SelectListner selectListner) {
         this.list = list;
         this.context = context;
+        this.selectListner=selectListner;
     }
 
 
@@ -42,6 +45,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         imgUri=plantModel.img;
         Picasso.get().load(imgUri).into(holder.img);
 
+        String finalImgUri = imgUri;
+        holder.history_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectListner.onItemClicked(list.get(position), finalImgUri);
+            }
+        });
+
 
     }
 
@@ -53,12 +64,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public class  MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView nameofPLANT,nameOfDiseases;
+        LinearLayout history_item;
         ImageView img;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             nameofPLANT = itemView.findViewById(R.id.plant_name);
             nameOfDiseases = itemView.findViewById(R.id.nameofDis);
             img = itemView.findViewById(R.id.item_img);
+            history_item= itemView.findViewById(R.id.main_card);
 
         }
     }

@@ -1,6 +1,7 @@
 package com.example.plant;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
@@ -23,6 +24,8 @@ import java.util.List;
 
 public class FirebaseUtil {
 
+
+    static UserModel currentModel;
     public static String currentUserId(){
         return FirebaseAuth.getInstance().getUid();
     }
@@ -86,7 +89,7 @@ public class FirebaseUtil {
     }
 
     public static String timestampToString(Timestamp timestamp){
-        return new SimpleDateFormat("HH:MM").format(timestamp.toDate());
+        return new SimpleDateFormat("dd-M-yyyy hh:mm:ss").format(timestamp.toDate());
     }
 
     public static void logout(){
@@ -103,7 +106,34 @@ public class FirebaseUtil {
                 .child(otherUserId);
     }
 
+    public static void getUserData()
+    {
+        if(isLoggedIn())
+        {
+            DocumentReference d= FirebaseUtil.currentUserDetails();
+            d.get().addOnCompleteListener(task -> {
+                currentModel =task.getResult().toObject(UserModel.class);
+            });
+        }
 
+    }
+
+    public static String getUsername(){
+        UserModel d =getCurrentModel();
+        String st =d.getUsername();
+        if(st.isEmpty() || st==null)
+            return  String.valueOf(R.string.farmer);
+        return st;
+    }
+
+    public  static  UserModel getCurrentModel()
+    {
+        if(currentModel==null)
+        {
+            getUserData();
+        }
+        return  currentModel;
+    }
 }
 
 
